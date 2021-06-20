@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Playground.Infrastructure;
 
@@ -24,19 +25,47 @@ namespace Playground.Tests
         [TestMethod]
         public void FileDoesNotExist()
         {
-            Assert.Inconclusive();
+            //arrange
+            var fp = new FileProcess();
+            bool fromCall;
+
+            //act
+            fromCall = fp.FileExists(@"D:\Users\Gamal Elsherbiny\Desktop\coco.cs");
+
+            //assert
+            Assert.IsFalse(fromCall);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void FileNameNullOrEmpty_UsingAttribute()
         {
-            Assert.Inconclusive();
+            //arrange
+            var fp = new FileProcess();
+
+            //act
+            fp.FileExists("");
         }
 
         [TestMethod]
         public void FileNameNullOrEmpty_UsingTryCatch()
         {
-            Assert.Inconclusive();
+            //arrange
+            var fb = new FileProcess();
+
+            //act
+            try
+            {
+                fb.FileExists("");
+            }
+            catch (ArgumentNullException)
+            {
+
+                return;
+            }
+
+            //assert
+            //Assert.Fail("file exists did not throw ArgumentNullException");
         }
     }
 }
